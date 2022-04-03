@@ -5,7 +5,7 @@ import ListCard from './card';
 import NotFound from '../notFound';
 
 function ListComp({
-  activeLoc, setActiveLoc, hits, moveCard, setMoveCard,
+  activeLoc, setActiveLoc, hits, moveCard, setMoveCard, setCenterMap,
 }) {
   if (!hits || !hits.length) {
     return (<NotFound />);
@@ -16,6 +16,7 @@ function ListComp({
   return hits.map(
     (hit) => (
       <ListCard
+        setCenterMap={setCenterMap}
         setMoveCard={setMoveCard}
         moveCard={moveCard}
         activeLoc={activeLoc}
@@ -35,6 +36,7 @@ ListComp.propTypes = {
   setMoveCard: PropTypes.func.isRequired,
   moveCard: PropTypes.bool.isRequired,
   hits: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+  setCenterMap: PropTypes.func.isRequired,
 };
 
 export default connectHits(ListComp);

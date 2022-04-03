@@ -60,6 +60,7 @@ function App() {
         </MapSection>
         <ListSection>
           <ListComp
+            setCenterMap={setCenterMap}
             moveCard={moveCard}
             activeLoc={activeLoc}
             setActiveLoc={setActiveLoc}

@@ -9,7 +9,7 @@ import {
 import { GET_FLIGHTS, GET_FLIGHTS_WITHOUT_DATE, GET_SPACE_CENTER } from './query';
 
 export default function ListCard({
-  spaceCenter, departureDay = '', activeLoc,
+  spaceCenter, departureDay = '', activeLoc, setCenterMap,
   setActiveLoc, moveCard, setMoveCard, activeCard, setActiveCard,
 }) {
   const cardRef = useRef(null);
@@ -46,6 +46,7 @@ export default function ListCard({
     return null;
   }
   const onCardHover = () => {
+    setCenterMap(false);
     setMoveCard(false);
     setActiveLoc(_geoloc);
   };
@@ -86,4 +87,5 @@ ListCard.propTypes = {
   setMoveCard: PropTypes.func.isRequired,
   activeCard: PropTypes.string.isRequired,
   setActiveCard: PropTypes.func.isRequired,
+  setCenterMap: PropTypes.func.isRequired,
 };

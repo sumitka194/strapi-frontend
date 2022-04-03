@@ -80,18 +80,23 @@ const FilterBody = styled.div`
 `;
 
 const HeaderIconContainer = styled.div`
-  background-color: #f9cb1c;
   display: flex;
+  justify-content: flex-end;
   @media (min-width: 500px) {
     grid-row: 1;
     grid-column: 12;
-    ${'' /* max-width: 15rem; */}
   }
+`;
+
+const HeaderIconWrapper = styled.span`
+  background-color: #f9cb1c;
+  display: flex;
 `;
 
 const HeaderIcon = styled.img`
   margin: auto;
   padding: 0 2rem 0 2rem;
+  cursor: pointer;
 `;
 
 const Button = styled.button`
@@ -127,7 +132,8 @@ const Input = styled.input`
   }
 `;
 
-const searchClient = algoliasearch('UORHJCOG49', '74fb98e8049e4753ce230f010774b425');
+const { REACT_APP_ALGOLIA_APP_ID, REACT_APP_ALGOLIA_APP_KEY } = process.env;
+const searchClient = algoliasearch(REACT_APP_ALGOLIA_APP_ID, REACT_APP_ALGOLIA_APP_KEY);
 
 const VirtualSearchBox = connectSearchBox(() => null);
 
@@ -188,9 +194,11 @@ export default function SearchBar({
           <Button onClick={applyFilter}>Save</Button>
         </FilterContainer>
         <HeaderIconContainer>
-          {innerWidth <= 500
-            ? <MobileIcons openFilter={openFilter} setOpenFilter={setOpenFilter} />
-            : <HeaderIcon src={ArrowIcon} onClick={applyFilter} />}
+          <HeaderIconWrapper>
+            {innerWidth <= 500
+              ? <MobileIcons openFilter={openFilter} setOpenFilter={setOpenFilter} />
+              : <HeaderIcon src={ArrowIcon} onClick={applyFilter} />}
+          </HeaderIconWrapper>
         </HeaderIconContainer>
       </Header>
       {children}

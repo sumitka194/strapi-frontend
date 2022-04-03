@@ -71,7 +71,7 @@ function MapComponent(props) {
     <Map
       {...viewState}
       ref={mapRef}
-      style={{ width: '100%', height: innerWidth <= 500 ? 900 : 'calc(100vh - 4rem)' }}
+      style={{ width: '100%', height: 'calc(100vh - 4rem)' }}
       onMove={(evt) => setViewState(evt.viewState)}
       onMoveEnd={onMapInteraction}
       mapStyle="mapbox://styles/mapbox/dark-v8"

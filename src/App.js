@@ -39,6 +39,7 @@ const ListSection = styled.section`
   display: flex;
   overflow: scroll;
   background-color: '#f6f3f3';
+  position: relative;
   @media (min-width: 500px) {
     flex-direction: column;
     grid-row: 2;

@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { connectHits } from 'react-instantsearch-dom';
 import PropTypes from 'prop-types';
 import ListCard from './card';
-// import SmileyIcon from '../../assets/icons/Smiley@2x.svg';
+import NotFound from '../notFound';
 
 function ListComp({
   activeLoc, setActiveLoc, hits, moveCard, setMoveCard,
 }) {
   if (!hits || !hits.length) {
-    return null;
+    return (<NotFound />);
   }
 
   const [activeCard, setActiveCard] = useState(null);

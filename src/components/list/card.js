@@ -11,15 +11,15 @@ const bounce = keyframes`
 `;
 
 const Card = styled.div`
-  margin: 2rem;
-  min-width: 21.4rem;
+  margin: 1.5rem;
+  min-width: 20rem;
   box-shadow: ${props => (props.isActive ? css`0 3px 10px rgb(0 0 0 / 0.2)` : '')};
   background-color: #fff;
   @media (min-width: 500px) {
     min-width: 0;
   }
 `;
-const CardContent = styled.div`
+const CardBody = styled.div`
   padding: 0.5rem 1rem;
   display: flex;
 `;
@@ -47,6 +47,9 @@ const Button = styled.button`
 const SpaceCenterText = styled.p`
   font-size: 16px;
   font-weight: 700;
+  @media (max-width: 500px) {
+    min-height: 40px;
+  }
 `;
 
 const FlightCountText = styled.p`
@@ -145,7 +148,7 @@ export default function ListCard({
 
   return (
     <Card isActive={activeCard === uid} ref={cardRef} onMouseEnter={onCardHover}>
-      <CardContent>
+      <CardBody>
         <CardData>
           <SpaceCenterText>{data.spaceCenter.name}</SpaceCenterText>
           <PlanetText>{data.spaceCenter.planet.name}</PlanetText>
@@ -154,7 +157,7 @@ export default function ListCard({
         <CardImage>
           <Image src={Rocket} animate={animate} />
         </CardImage>
-      </CardContent>
+      </CardBody>
       <Button>SEE ALL FLIGHTS</Button>
     </Card>
   );

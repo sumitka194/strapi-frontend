@@ -31,6 +31,7 @@ export default function Autocomplete(props) {
         },
         onSelect({ item }) {
           setItemSelected(item);
+          inputRef.current.value = item.name;
         },
         getItems({ query }) {
           return getAlgoliaResults({

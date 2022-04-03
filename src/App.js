@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import './App.css';
 import MapComponent from './components/map';
 import ListComp from './components/list';
 import SearchBar from './components/searchBar';

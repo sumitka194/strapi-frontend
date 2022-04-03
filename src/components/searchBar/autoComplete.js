@@ -1,30 +1,15 @@
-/* eslint-disable */
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/no-array-index-key */
 import { createAutocomplete } from '@algolia/autocomplete-core';
 import { getAlgoliaResults } from '@algolia/autocomplete-preset-algolia';
 import React, {
   useEffect, useRef, useState, useMemo,
 } from 'react';
+import PropTypes from 'prop-types';
 import '@algolia/autocomplete-theme-classic';
-import styled from 'styled-components';
+import { Input, InputWrapperSuffix } from './components';
 import DropArrowIcon from '../../assets/icons/DropArrow.svg';
 import useWindowDimensions from '../../hooks/dimension';
-
-const Input = styled.input`
-  @media (min-width: 500px) {
-    border: none;
-    border-bottom: 1px solid #fff;
-    width: 10rem;
-    color: white;
-    background-color: #4e4e4e;
-  }
-`;
-
-const InputWrapperSuffix = styled.div`
-  @media (min-width: 500px) {
-    display: none;
-    width: 10rem;
-  }
-`;
 
 export default function Autocomplete(props) {
   const inputRef = useRef(null);
@@ -57,14 +42,14 @@ export default function Autocomplete(props) {
                 hitsPerPage: 5,
                 facets: ['*,planet_code'],
                 facetFilters: [['planet_code:EAR']],
-              }
-            }]
-          })
+              },
+            }],
+          });
         },
-      }]
+      }];
     },
     ...props,
-  }), [props])
+  }), [props]);
 
   const { getEnvironmentProps } = autocomplete;
 
@@ -91,7 +76,7 @@ export default function Autocomplete(props) {
   return (
     <div className="aa-Autocomplete" {...autocomplete.getRootProps({})}>
       <form
-        className={innerWidth <= 500 && "aa-Form"}
+        className={innerWidth <= 500 && 'aa-Form'}
         {...autocomplete.getFormProps({ inputElement: inputRef.current })}
       >
         <div className="aa-InputWrapper">
@@ -99,7 +84,7 @@ export default function Autocomplete(props) {
         </div>
         <InputWrapperSuffix className="aa-InputWrapperSuffix">
           <button className="aa-ClearButton" title="Clear" type="reset">
-            <img src={DropArrowIcon} />
+            <img src={DropArrowIcon} alt="drop-icon" />
           </button>
         </InputWrapperSuffix>
       </form>
@@ -123,17 +108,15 @@ export default function Autocomplete(props) {
                 <section key={`source-${index}`} className="aa-Source">
                   {items.length > 0 && (
                     <ul className="aa-List" {...autocomplete.getListProps()}>
-                      {items.map((item) => {
-                        return (
-                          <li
-                            key={item.objectID}
-                            className="aa-Item"
-                            {...autocomplete.getItemProps({ item, source })}
-                          >
-                            {item.name}
-                          </li>
-                        );
-                      })}
+                      {items.map((item) => (
+                        <li
+                          key={item.objectID}
+                          className="aa-Item"
+                          {...autocomplete.getItemProps({ item, source })}
+                        >
+                          {item.name}
+                        </li>
+                      ))}
                     </ul>
                   )}
                 </section>
@@ -145,3 +128,9 @@ export default function Autocomplete(props) {
     </div>
   );
 }
+
+Autocomplete.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  searchClient: PropTypes.any.isRequired,
+  setItemSelected: PropTypes.func.isRequired,
+};

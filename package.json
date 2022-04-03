@@ -4,9 +4,6 @@
   "private": true,
   "dependencies": {
     "@algolia/autocomplete-core": "^1.5.6",
-    "@algolia/autocomplete-js": "^1.5.5",
-    "@algolia/autocomplete-plugin-query-suggestions": "^1.5.6",
-    "@algolia/autocomplete-plugin-recent-searches": "^1.5.6",
     "@algolia/autocomplete-preset-algolia": "^1.5.6",
     "@algolia/autocomplete-theme-classic": "^1.5.5",
     "@apollo/client": "^3.5.10",
@@ -16,11 +13,9 @@
     "algoliasearch": "^4.13.0",
     "graphql": "^16.3.0",
     "mapbox-gl": "^2.7.1",
-    "qs": "^6.10.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-instantsearch-dom": "^6.23.0",
-    "react-instantsearch-hooks": "^6.23.1",
     "react-map-gl": "^7.0.10",
     "react-scripts": "5.0.0",
     "styled-components": "^5.3.3"

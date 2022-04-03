@@ -1,7 +1,7 @@
-/* eslint-disable */
 import {
   useState, useCallback, useEffect, useRef,
 } from 'react';
+import PropTypes from 'prop-types';
 import Map, {
   GeolocateControl, Marker, FullscreenControl, NavigationControl, Popup,
 } from 'react-map-gl';
@@ -9,7 +9,6 @@ import { connectGeoSearch } from 'react-instantsearch-dom';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Pointer from '../../assets/icons/Pointer@2x.svg';
 import PointerSelected from '../../assets/icons/Pointer_selected@2x.svg';
-import useWindowDimensions from '../../hooks/dimension';
 
 function MapComponent(props) {
   const {
@@ -23,7 +22,6 @@ function MapComponent(props) {
     pitch: 0,
     transitionDuration: 1000,
   });
-  const { innerWidth } = useWindowDimensions();
   const [popupInfo, setPopupInfo] = useState(null);
   const [currentLoc, setCurrentLoc] = useState([activeLoc?.lat || 0, activeLoc?.lng || 0]);
   const mapRef = useRef(null);
@@ -60,13 +58,15 @@ function MapComponent(props) {
     centerMapOnCoordinates(currentLoc);
   }, [currentLoc]);
 
-  const onMarkerClick = (_geoloc, name, uid) => {
-    setPopupInfo({name, _geoloc});
+  const onMarkerClick = (_geoloc, name) => {
+    setPopupInfo({ name, _geoloc });
     setCenterMap(false);
     setMoveCard(true);
     setActiveLoc(_geoloc);
+  };
+  function isSelected(_geoloc) {
+    return (_geoloc.lng === activeLoc?.lng && _geoloc.lat === activeLoc?.lat);
   }
-  const isSelected = (_geoloc) => (_geoloc.lng === activeLoc?.lng && _geoloc.lat === activeLoc?.lat);
   return (
     <Map
       {...viewState}
@@ -82,7 +82,9 @@ function MapComponent(props) {
       {
         hits.map(({ _geoloc, uid, name }) => (
           <Marker onClick={() => onMarkerClick(_geoloc, name, uid)} key={uid} longitude={_geoloc.lng} latitude={_geoloc.lat} anchor="bottom">
-            {isSelected(_geoloc) ? <img src={PointerSelected} /> : <img src={Pointer} />}
+            {isSelected(_geoloc)
+              ? <img src={PointerSelected} alt={name} />
+              : <img src={Pointer} alt={name} />}
           </Marker>
         ))
       }
@@ -94,12 +96,29 @@ function MapComponent(props) {
           closeOnClick={false}
           onClose={() => setPopupInfo(null)}
         >
-          <img width="100%" src='./space-station.png' alt={popupInfo.name} />
+          <img width="100%" src="./space-station.png" alt={popupInfo.name} />
           <p>{popupInfo.name}</p>
         </Popup>
       )}
     </Map>
   );
 }
+
+MapComponent.propTypes = {
+  hits: PropTypes.arrayOf({
+    _geoloc: PropTypes.objectOf({
+      lat: PropTypes.string.isRequired,
+      lng: PropTypes.string.isRequired,
+    }).isRequired,
+    uid: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+  activeLoc: PropTypes.bool.isRequired,
+  setInsideBoundingBox: PropTypes.func.isRequired,
+  setActiveLoc: PropTypes.func.isRequired,
+  setMoveCard: PropTypes.func.isRequired,
+  setCenterMap: PropTypes.func.isRequired,
+  centerMap: PropTypes.bool.isRequired,
+};
 
 export default connectGeoSearch(MapComponent);

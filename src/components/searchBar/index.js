@@ -94,7 +94,7 @@ export default function SearchBar({
 }
 
 SearchBar.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
   insideBoundingBox: PropTypes.string.isRequired,
   setActiveLoc: PropTypes.func.isRequired,
   setMoveCard: PropTypes.func.isRequired,

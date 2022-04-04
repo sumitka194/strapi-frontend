@@ -14,6 +14,12 @@ Scripts
 npm install
 #Run on localhost
 npm run start
+#Run Eslint
+npm run lint
+#Fix Eslint
+npm run lint:fix
+#Run test
+npm run test
 ```
 ## State used
 | State Name | Description |
@@ -29,6 +35,7 @@ npm run start
 - Clicking on marker on Map will bring the corresponding card in the viewport a shadow is added to the card and rocket icon will bounce for 3s
 - Clicking in auto-complete input field will open the dropdown of the space centers on Earth and typing will show the suggestion for the releated keyword
 - Selecting space center from the auto complete dropdown will only center the map to the corresponding space center when > icon will be clicked in the Header or save icon should be clicked in case of mobile view
+- Test is written for Card component
 
 ## Features not working
 - Date Filter is not working (Getting error while running the below query)

@@ -7,8 +7,8 @@ import Map, {
 } from 'react-map-gl';
 import { connectGeoSearch } from 'react-instantsearch-dom';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import Pointer from '../../assets/icons/Pointer@2x.svg';
-import PointerSelected from '../../assets/icons/Pointer_selected@2x.svg';
+import Pointer from '../../assets/icons/Pointer.svg';
+import PointerSelected from '../../assets/icons/Pointer_selected.svg';
 
 function MapComponent(props) {
   const {
@@ -113,7 +113,10 @@ MapComponent.propTypes = {
     uid: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   }).isRequired,
-  activeLoc: PropTypes.bool.isRequired,
+  activeLoc: PropTypes.objectOf({
+    lat: PropTypes.string.isRequired,
+    lng: PropTypes.string.isRequired,
+  }).isRequired,
   setInsideBoundingBox: PropTypes.func.isRequired,
   setActiveLoc: PropTypes.func.isRequired,
   setMoveCard: PropTypes.func.isRequired,

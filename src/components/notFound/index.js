@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import SmileyIcon from '../../assets/icons/Smiley@2x.svg';
+import SmileyIcon from '../../assets/icons/Smiley.svg';
 
 const Typography = styled.p`
   font-size: 16px;

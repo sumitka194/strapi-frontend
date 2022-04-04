@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import Rocket from '../../assets/icons/Rocket@2x.svg';
+import Rocket from '../../assets/icons/Rocket.svg';
 import {
   Button, Card, CardBody, CardData, CardImage, FlightCountText,
   Image, PlanetText, SpaceCenterText,
@@ -16,7 +16,7 @@ export default function ListCard({
   const [animate, setAnimate] = useState(false);
   const { uid, _geoloc } = spaceCenter;
   const { data } = useQuery(GET_SPACE_CENTER, { variables: { uid } });
-  const fightVairables = data && { from: data.spaceCenter.id };
+  const flightVairables = data && { from: data.spaceCenter.id };
   const flightQuery = departureDay ? GET_FLIGHTS : GET_FLIGHTS_WITHOUT_DATE;
   useEffect(() => {
     if (activeLoc && (activeLoc.lat === _geoloc.lat || activeLoc.lng === _geoloc.lng)) {
@@ -36,11 +36,11 @@ export default function ListCard({
     }
   }, [animate]);
   if (departureDay) {
-    fightVairables.departureDay = departureDay;
+    flightVairables.departureDay = departureDay;
   }
   const { data: flightData } = useQuery(flightQuery, {
     skip: !data,
-    variables: fightVairables,
+    variables: flightVairables,
   });
   if (!data || !flightData) {
     return null;
@@ -58,9 +58,7 @@ export default function ListCard({
           <SpaceCenterText>{data.spaceCenter.name}</SpaceCenterText>
           <PlanetText>{data.spaceCenter.planet.name}</PlanetText>
           <FlightCountText>
-            {flightData.flights.pagination.total}
-            {' '}
-            departures planned today
+            {`${flightData.flights.pagination.total} departures planned today`}
           </FlightCountText>
         </CardData>
         <CardImage>
@@ -72,6 +70,10 @@ export default function ListCard({
   );
 }
 
+ListCard.defaultProps = {
+  departureDay: '',
+};
+
 ListCard.propTypes = {
   spaceCenter: PropTypes.objectOf({
     uid: PropTypes.string.isRequired,
@@ -80,8 +82,11 @@ ListCard.propTypes = {
       lng: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  departureDay: PropTypes.string.isRequired,
-  activeLoc: PropTypes.bool.isRequired,
+  departureDay: PropTypes.string,
+  activeLoc: PropTypes.objectOf({
+    lat: PropTypes.string.isRequired,
+    lng: PropTypes.string.isRequired,
+  }).isRequired,
   setActiveLoc: PropTypes.func.isRequired,
   moveCard: PropTypes.bool.isRequired,
   setMoveCard: PropTypes.func.isRequired,

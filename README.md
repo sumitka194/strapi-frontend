@@ -1,5 +1,9 @@
 # Space Trip Booking Application
 
+## Project environment
+Node Version: ^16
+Npm Version: ^6
+
 ## Project Setup
 Environment Variables
 | Variables | Description |
